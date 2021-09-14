@@ -71,7 +71,7 @@ def plot_bars(data):
                 else:
                     ax.bar(x_ticks_base[i]+j*bar_width, data[df_name].loc[planner,metric], width=bar_width,  color=color_mapping[planner])
         plt.xlabel('No. Obstacles', fontsize=17)
-        plt.xticks([r + ((len(planners))/2-0.5)*bar_width for r in x_ticks_base], [label_mapping[df_name] for df_name in df_names],fontsize=17) # NOTE: hardcoded for obs quantity
+        plt.xticks([r + ((len(planners))/2-0.5)*bar_width for r in x_ticks_base], [label_mapping[df_name] for df_name in df_names],fontsize=15) # NOTE: hardcoded for obs quantity
         plt.ylabel('{}'.format(label_mapping[metric]), fontsize=17)
         plt.yticks(fontsize="15")
         plt.title("{} over No. Obstacles".format(label_mapping[metric]), fontweight='bold', fontsize=17)
