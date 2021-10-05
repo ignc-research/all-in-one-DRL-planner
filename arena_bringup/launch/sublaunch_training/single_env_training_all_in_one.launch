@@ -1,0 +1,34 @@
+<launch>
+    <arg name="ns" />
+
+    <arg name="global_frame_id"   value="map"/>
+    <arg name="odom_frame_id"     value="$(arg ns)_odom"/>
+    <arg name="base_frame_id"     value="$(arg ns)_footprint"/>
+
+    <arg name="map_file"        default="random_map"/>
+    <arg name="map_path" default="$(find simulator_setup)/maps/$(arg map_file)/$(arg ns)_map.yaml"/>
+
+    <!-- use fake localization-->
+    <include file="$(find arena_bringup)/launch/sublaunch_training/fake_localization.launch">
+      <arg name="ns"                value="$(arg ns)"/>
+      <arg name="global_frame_id"   value="$(arg global_frame_id)"/>
+      <arg name="odom_frame_id"     value="$(arg odom_frame_id)"/>
+    </include>
+
+    <!-- use simulator and rviz-->
+    <include file="$(find arena_bringup)/launch/sublaunch_training/flatland_simulator.launch">
+        <arg name="ns" value="$(arg ns)"/>
+    </include>
+
+    <!-- map server-->
+    <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_path)" ns="$(arg ns)">
+      <!-- In multi-env training /clock not available, since we only want one map_server, it's clock topic is remapped to /clock -->
+      <remap from="/clock" to="/$(arg ns)/clock"/>
+    </node>
+
+    <!-- set map parameters -->
+    <param name="/$(arg ns)/flatland_server/world_path" value="$(find simulator_setup)/maps/$(arg map_file)/$(arg ns)_map.world.yaml"/>
+    <param name="/$(arg ns)/flatland_server/map_layer_path" value="$(find simulator_setup)/maps/$(arg map_file)/$(arg ns)_map_layer.yaml"/>
+    <param name="/$(arg ns)/flatland_server/map_file" value="$(arg map_file)" />
+
+  </launch>
