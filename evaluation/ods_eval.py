@@ -40,7 +40,7 @@ def plot_bars(data):
     print("----------")
     print("Begin plotting.")
     color_mapping, label_mapping, leave_out_planner = load_config_yaml()
-    df_names = list(data.keys())
+    df_names = sorted(list(data.keys()))
     planners = get_planners(data)
     try:
         for leave_out in leave_out_planner:
@@ -70,13 +70,13 @@ def plot_bars(data):
                     ax.bar(x_ticks_base[i]+j*bar_width, data[df_name].loc[planner,metric], width=bar_width, label=label_mapping[planner],  color=color_mapping[planner])
                 else:
                     ax.bar(x_ticks_base[i]+j*bar_width, data[df_name].loc[planner,metric], width=bar_width,  color=color_mapping[planner])
-        plt.xlabel('No. Obstacles', fontsize=17)
+        plt.xlabel('No. Obstacles', fontsize=15)
         plt.xticks([r + ((len(planners))/2-0.5)*bar_width for r in x_ticks_base], [label_mapping[df_name] for df_name in df_names],fontsize=15) # NOTE: hardcoded for obs quantity
         plt.ylabel('{}'.format(label_mapping[metric]), fontsize=17)
         plt.yticks(fontsize="15")
         plt.title("{} over No. Obstacles".format(label_mapping[metric]), fontweight='bold', fontsize=17)
         ax.grid('on')
-        plt.legend(loc='best', fontsize="17")
+        #plt.legend(loc='best', fontsize="17")
         plt.savefig(path+'/{0}.png'.format(metric))
     print("Finish plotting.")
     print("----------")
