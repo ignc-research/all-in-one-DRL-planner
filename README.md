@@ -1,4 +1,4 @@
-# All-in-one Planner: A DRL-based Control Switch
+# All-in-one Planner: A DRL-based Control Switch (ICRA22)
 This repository contains the code for the paper [All-in-One: A DRL-based Control Switch Combining State-of-the-art Navigation Planners](https://arxiv.org/pdf/2109.11636.pdf). The All-In-One Planner (AIO) chooses from a given list of local planners in each iteration with the objective to combine the strengths of learning-based planners and classical planners like TEB / MPC. The AIO planner is developed on top of the navigation framework [Arena-Rosnav](https://github.com/ignc-research/arena-rosnav).
 
 The repository provides:
